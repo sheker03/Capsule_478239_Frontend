@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="row align-items-start">
+      <div class="col">
+        <form>
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label"> Task</label>
+            <div class="col-sm-5">
+              <input type="text" id="txtTask" class="form-control" name="txtTask" [(ngModel)]="txtTask">
+            </div>
+            <label class="col-sm-1 col-form-label"> Parent Task</label>
+            <div class="col-sm-5">
+              <input type="text" id="txtParentTask" class="form-control" name="txtParentTask" [(ngModel)]="txtParentTask">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label">Prioriy From</label>
+            <div class="col-sm-2">
+              <input type="text" id="txtPrioriyFrom" class="form-control" name="txtPrioriyFrom" [(ngModel)]="txtPrioriyFrom">
+            </div>
+            <label class="col-sm-1 col-form-label">Priority To</label>
+            <div class="col-sm-2">
+              <input type="text" id="txtPrioriyTo" class="form-control" name="txtPrioriyTo" [(ngModel)]="txtPrioriyTo">
+            </div>
+            <label class="col-sm-1 col-form-label">Start Date</label>
+            <div class="col-sm-2">
+              <input type="date" id="dtStartDate" class="form-control" name="dtStartDate" [(ngModel)]="dtStartDate">
+            </div>
+            <label class="col-sm-1 col-form-label">End Date</label>
+            <div class="col-sm-2">
+              <input type="date" id="dtEndDate" class="form-control" name="dtEndDate" [(ngModel)]="dtEndDate">
+            </div>
+          </div>
+  
+          <div class="form-group row">
+  
+            <table id=tdAllTasks class="table">
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Parent Task</th>
+                  <th>Priority</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let task of allTask | viewTaskFilter :txtTask : txtParentTask : txtPrioriyFrom : txtPrioriyTo : dtStartDate : dtEndDate">
+                  <td>
+                    <label class="col-lg-auto col-form-label"> {{task.Task_Name}}</label>
+                  </td>
+                  <td>
+                    <label class="col-lg-auto col-form-label"> {{task.Parent_ID}}</label>
+                  </td>
+                  <td>
+                    <label class="col-lg-auto col-form-label"> {{task.Priority}} </label>
+                  </td>
+                  <td>
+                    <label class="col-lg-auto col-form-label"> {{task.Start_Date | date:'shortDate'}} </label>
+                  </td>
+                  <td>
+                    <label class="col-lg-auto col-form-label"> {{task.End_Date | date:'shortDate'}} </label>
+                  </td>
+                  <td>
+                    <button class="btn" id="btnEditTask" [disabled]="disableTask(task.Status)" [routerLink]="['/UpdateTask',task.Task_ID]">Edit</button>
+                  </td>
+                  <td>
+                    <button class="btn" id="btnEndTask" (click)="endTask(task.Task_ID)">End Task</button>
+                  </td>
+                  <td>
+                    <button class="btn" id="btnDeleteTask" (click)="deleteTask(task.Task_ID)">Delete Task</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
